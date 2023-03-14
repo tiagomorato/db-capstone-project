@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `littlelemondb` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `littlelemondb`;
+CREATE DATABASE  IF NOT EXISTS `littlelemondb2` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `littlelemondb2`;
 -- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: littlelemondb
+-- Host: 127.0.0.1    Database: littlelemondb2
 -- ------------------------------------------------------
 -- Server version	8.0.29
 
@@ -28,8 +28,11 @@ CREATE TABLE `booking` (
   `BookingID` int NOT NULL AUTO_INCREMENT,
   `BookingTable` int NOT NULL,
   `BookingDate` date NOT NULL,
-  PRIMARY KEY (`BookingID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  `CustomerID` int NOT NULL,
+  PRIMARY KEY (`BookingID`),
+  KEY `fk_Booking_Customer1_idx` (`CustomerID`),
+  CONSTRAINT `fk_Booking_Customer1` FOREIGN KEY (`CustomerID`) REFERENCES `customer` (`CustomerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,6 +41,7 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
+INSERT INTO `booking` VALUES (1,2,'2023-03-15',1),(2,4,'2023-03-16',2),(3,1,'2023-03-18',3),(4,3,'2023-03-20',4),(5,2,'2023-03-22',5),(6,4,'2023-03-23',6),(7,1,'2023-03-25',7),(8,3,'2023-03-27',8),(9,2,'2023-03-29',9),(10,4,'2023-03-30',10);
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,6 +70,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
+INSERT INTO `customer` VALUES (1,'John Doe','1234567890','1985-05-01','john.doe@example.com','123 Main St'),(2,'Jane Smith','2345678901','1990-06-02','jane.smith@example.com','456 Park Ave'),(3,'David Lee','3456789012','1988-03-15','david.lee@example.com','789 Broadway'),(4,'Sarah Chen','4567890123','1995-12-25','sarah.chen@example.com','1010 5th Ave'),(5,'Michael Kim','5678901234','1992-09-10','michael.kim@example.com','432 Park Ave'),(6,'Emily Brown','6789012345','1980-11-11','emily.brown@example.com','345 Madison Ave'),(7,'Daniel Kim','7890123456','1975-01-20','daniel.kim@example.com','100 1st Ave'),(8,'Ava Lee','8901234567','2000-04-30','ava.lee@example.com','200 2nd Ave'),(9,'Oliver Chen','9012345678','1999-07-05','oliver.chen@example.com','300 3rd Ave'),(10,'Sophia Park','0123456789','2005-02-14','sophia.park@example.com','400 4th Ave');
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,6 +98,7 @@ CREATE TABLE `menu` (
 
 LOCK TABLES `menu` WRITE;
 /*!40000 ALTER TABLE `menu` DISABLE KEYS */;
+INSERT INTO `menu` VALUES (1,'Italian','Set menu 1',1),(2,'Italian','Set menu 2',2),(3,'Indian','Set menu 3',3),(4,'British','Set menu 4',4),(5,'British','Set menu 5',5),(6,'Italian','Set menu 6',6),(7,'Italian','Set menu 7',7),(8,'Indian','Set menu 8',8),(9,'Indian','Set menu 9',9),(10,'British','Set menu 10',10);
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,6 +125,7 @@ CREATE TABLE `menuitem` (
 
 LOCK TABLES `menuitem` WRITE;
 /*!40000 ALTER TABLE `menuitem` DISABLE KEYS */;
+INSERT INTO `menuitem` VALUES (1,'Main','Prawn cocktail','Chocolate cake','Coca-cola'),(2,'Main','Tomato soup','Fruit salad','Sprite'),(3,'Main','Chicken curry','Cheesecake','Pepsi'),(4,'Main','Beef stew','Apple pie','Lemonade'),(5,'Main','Fish and chips','Ice cream','Fanta'),(6,'Starter','Garlic bread','Soup of the day','Melon'),(7,'Starter','Bruschetta','Prawn cocktail','Soup of the day'),(8,'Starter','Mushroom soup','Garlic bread','Melon'),(9,'Starter','Prawn cocktail','Bruschetta','Soup of the day'),(10,'Starter','Soup of the day','Mushroom soup','Garlic bread');
 /*!40000 ALTER TABLE `menuitem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,17 +141,14 @@ CREATE TABLE `order` (
   `OrderDate` date NOT NULL,
   `OrderQty` int NOT NULL,
   `OrderCost` decimal(10,0) NOT NULL,
-  `CustomerID` int NOT NULL,
   `MenuID` int NOT NULL,
   `BookingID` int NOT NULL,
   PRIMARY KEY (`OrderID`),
-  KEY `CustomerID_idx` (`CustomerID`),
   KEY `fk_Orders_Menu1_idx` (`MenuID`),
   KEY `fk_Order_Booking1_idx` (`BookingID`),
   CONSTRAINT `fk_Order_Booking1` FOREIGN KEY (`BookingID`) REFERENCES `booking` (`BookingID`),
-  CONSTRAINT `fk_Orders_Customer1` FOREIGN KEY (`CustomerID`) REFERENCES `customer` (`CustomerID`),
   CONSTRAINT `fk_Orders_Menu1` FOREIGN KEY (`MenuID`) REFERENCES `menu` (`MenuID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -153,6 +157,7 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
+INSERT INTO `order` VALUES (1,'2022-02-14',2,50,1,1),(2,'2022-02-14',4,100,2,2),(3,'2022-02-15',3,75,3,3),(4,'2022-02-16',2,50,4,4);
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,6 +188,7 @@ CREATE TABLE `orderdelivery` (
 
 LOCK TABLES `orderdelivery` WRITE;
 /*!40000 ALTER TABLE `orderdelivery` DISABLE KEYS */;
+INSERT INTO `orderdelivery` VALUES (1,'2023-03-15','Delivered',1,1),(2,'2023-03-17','In Transit',2,2),(3,'2023-03-20','Out for Delivery',3,3),(4,'2023-03-22','Pending',4,4);
 /*!40000 ALTER TABLE `orderdelivery` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -206,6 +212,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
+INSERT INTO `role` VALUES (1,'Manager'),(2,'Chef'),(3,'Waiter'),(4,'Bartender');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -235,6 +242,7 @@ CREATE TABLE `staff` (
 
 LOCK TABLES `staff` WRITE;
 /*!40000 ALTER TABLE `staff` DISABLE KEYS */;
+INSERT INTO `staff` VALUES (1,'John Doe','johndoe@example.com',50000,1),(2,'Jane Smith','janesmith@example.com',40000,2),(3,'Bob Johnson','bobjohnson@example.com',30000,3),(4,'Amy Lee','amylee@example.com',35000,3),(5,'David Brown','davidbrown@example.com',40000,2),(6,'Sarah Jones','sarahjones@example.com',25000,3),(7,'Mike Davis','mikedavis@example.com',28000,3),(8,'Karen Wilson','karenwilson@example.com',32000,4);
 /*!40000 ALTER TABLE `staff` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -247,4 +255,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-12 20:39:28
+-- Dump completed on 2023-03-14 18:03:22
