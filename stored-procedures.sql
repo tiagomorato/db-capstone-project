@@ -81,9 +81,9 @@
 -- CancelBooking() 
 -- remove bookings from the Little Lemon database?
 	DELIMITER //
-	CREATE PROCEDURE CancelBooking(IN BookingID INT)
+	CREATE PROCEDURE CancelBooking(IN booking_id INT)
 	BEGIN
-	DELETE FROM booking WHERE BookingID = @BookingID;
+	DELETE FROM booking WHERE BookingID = booking_id;
 	END //
 	DELIMITER ;
-	CALL CancelOrder(1);
+	CALL CancelBooking(1);
