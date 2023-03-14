@@ -22,7 +22,7 @@
 
 		-- Check if the table is already booked
 		SELECT COUNT(*) INTO booking_status
-		FROM bookings
+		FROM booking
 		WHERE booking_date = @booking_date AND table_number = @table_number;
 
 		-- Output a message indicating whether the table is available or already booked
@@ -56,7 +56,8 @@
 	DELIMITER //
 	CREATE PROCEDURE AddBooking (
 		IN table_number INT,
-		IN booking_date DATE
+		IN booking_date DATE,
+		IN customer_id INT
 	)
 	BEGIN
 		-- Check if the table is available on the booking date
@@ -67,14 +68,15 @@
 		
 		-- Insert the booking if the table is available
 		IF booking_status = 0 THEN
-			INSERT INTO booking (BookingTable, BookingDate)
-			VALUES (table_number, booking_date);
+			INSERT INTO booking (BookingTable, BookingDate, CustomerID)
+			VALUES (table_number, booking_date, customer_id);
 			SELECT CONCAT('Booking for table ', table_number, ' on ', booking_date, ' was successful') AS message;
 		ELSE
 			SELECT CONCAT('Table ', table_number, ' is already booked on ', booking_date) AS message;
 		END IF;
 	END //
 	DELIMITER ;
+	CALL AddBooking(1, '2023-03-10', 2);
 
 -- CancelBooking() 
 -- remove bookings from the Little Lemon database?
