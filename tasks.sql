@@ -40,9 +40,9 @@ EXECUTE GetOrderDetail USING @CustomerID;
 
 -- Task 3: Stored Procedure
 DELIMITER //
-CREATE PROCEDURE CancelOrder(IN OrderID INT)
+CREATE PROCEDURE CancelOrder(IN order_id INT)
 BEGIN
-DELETE FROM `order` WHERE OrderID = @OrderID;
+DELETE FROM `order` WHERE OrderID = order_id;
 END //
 DELIMITER ;
 CALL CancelOrder(1);
