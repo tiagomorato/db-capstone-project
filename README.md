@@ -4,7 +4,7 @@
 - [Data Visualization](#data-visualization)
 
 # Description
-In this projects a MySQL database was used to store information on the fictional restaurant named LittleLemon. 
+In this project a MySQL database was used to store information on the fictional restaurant named LittleLemon. 
 Stored procedures to manage bookings are under `stored-procedures.sql`. Other queries can be found in the file `tasks.sql`
 
 # Data Model
