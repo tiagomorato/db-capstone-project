@@ -4,7 +4,7 @@
 - [Data Visualization](#data-visualization)
 
 # Description
-Final project for the certification "Database Engineer Capstone". In this projects a MySQL database was used to store information on the fictional restaurant named LittleLemon. 
+In this projects a MySQL database was used to store information on the fictional restaurant named LittleLemon. 
 Stored procedures to manage bookings are under `stored-procedures.sql`. Other queries can be found in the file `tasks.sql`
 
 # Data Model
