@@ -9,9 +9,9 @@ SELECT * FROM OrdersView;
 SELECT c.CustomerID, c.CustomerName, o.OrderID, o.OrderCost, m.MenuName, mi.MenuItemCourse, mi.MenuItemStarter
 FROM customer c, `order` o, menu m, menuitem mi
 WHERE m.MenuItemID = mi.MenuItemID 
-	AND o.MenuID = m.MenuID 
-	AND o.CustomerID = c.CustomerID 
-	AND OrderCost > 150
+    AND o.MenuID = m.MenuID 
+    AND o.CustomerID = c.CustomerID 
+    AND OrderCost > 150
 ORDER BY o.OrderCost ASC;
 
 -- Task 3
